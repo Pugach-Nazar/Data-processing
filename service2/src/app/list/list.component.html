@@ -1,0 +1,21 @@
+<h2>{{title}}</h2>
+<ul>
+  <li
+  *ngFor="let u of usersList"
+  (click)="onSelect(u)"
+  >{{u.id}}.{{u.name}} age:{{u.age}}
+<span (click)="deleteUser(u)"> X </span>
+</li>
+</ul>
+
+<h3 (click)="showAddForm=!showAddForm">Add User</h3>
+<form *ngIf="showAddForm" #form1="ngForm" (ngSubmit)="addUser(form1.value)">
+  <input type="hidden" name="id" [ngModel]="1" readonly>
+  <input type="text" name="name" ngModel><br><br>
+  <input type="number" name="age" ngModel=23><br><br>
+  <input type="submit" value="Add User">
+</form>
+<div>
+  <app-update [user]="selectedUser" (updated)="updateUsers()"></app-update>
+</div>
+
