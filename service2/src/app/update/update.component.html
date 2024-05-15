@@ -1,0 +1,8 @@
+<div *ngIf="user">
+<h3> Update User</h3>
+
+<input type="hidden" [(ngModel)]="user.id">
+<input type="text" [(ngModel)]="user.name"><br><br>
+<input type="number" [(ngModel)]="user.age"><br><br>
+<button (click)="updateUser()">Update user </button>
+</div>
