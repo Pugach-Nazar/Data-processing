@@ -1,6 +1,5 @@
 <h1>Machine guns</h1>
-<button (click)="table=!table; getRest()">Get machine guns</button>
-<button (click)="showCreateForm = !showCreateForm">Add new machine gun</button>
+<button (click)="table=!table" (click)="getRest()">Get machine guns</button>
 
 <table *ngIf="table">
   <thead>
@@ -9,48 +8,41 @@
       <th>Фото</th>
       <th>Опис</th>
       <th>Кількість</th>
-      <th>Дії</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let machineGun of machineGuns">
-      <td>{{machineGun.name}}</td>
-      <td><img src={{machineGun.photoUrl}} alt="photo" style="width: 100px; height: auto;"></td>
+    <tr (click)="onSelect(machineGun)" *ngFor="let machineGun of machineGuns">
+      <td >{{machineGun.name}}</td>
+      <td><img src={{machineGun.photoUrl}} alt="photo"></td>
       <td>{{machineGun.description}}</td>
       <td>{{machineGun.amount}}</td>
-      <td>
-        <button (click)="deleteMachineGun(machineGun)">Delete</button>
-        <button (click)="onSelect(machineGun); showEditForm = !showEditForm;">Edit</button>
-      </td>
     </tr>
   </tbody>
 </table>
 
-<div *ngIf="showCreateForm">
+<div >
   <form #form1="ngForm" (ngSubmit)="createMachineGun(form1.value)">
-    <label for="name">Name</label><br>
+    <label for="name"> Name</label><br>
     <input type="text" id="name" name="name" ngModel><br><br>
     <label for="photoUrl">Photo Url</label><br>
     <input type="text" id="photoUrl" name="photoUrl" ngModel><br><br>
-    <label for="description">Description</label><br>
+    <label for="description"> Description</label><br>
     <input type="text" id="description" name="description" ngModel><br><br>
     <label for="amount">Amount</label><br>
     <input type="number" id="amount" name="amount" ngModel><br><br>
-    <input type="submit" value="Add machine gun">
+    <input type="submit" value="Add machineGun" >
   </form>
 </div>
 
-<div *ngIf="showEditForm && selectedMachineGun">
-  <form (ngSubmit)="updateMachineGun()">
-    <input type="hidden" [(ngModel)]="selectedMachineGun.id">
-    <label for="editName">Name</label><br>
-    <input type="text" id="editName" name="editName" [(ngModel)]="selectedMachineGun.name"><br><br>
-    <label for="editPhotoUrl">Photo Url</label><br>
-    <input type="text" id="editPhotoUrl" name="editPhotoUrl" [(ngModel)]="selectedMachineGun.photoUrl"><br><br>
-    <label for="editDescription">Description</label><br>
-    <input type="text" id="editDescription" name="editDescription" [(ngModel)]="selectedMachineGun.description"><br><br>
-    <label for="editAmount">Amount</label><br>
-    <input type="number" id="editAmount" name="editAmount" [(ngModel)]="selectedMachineGun.amount"><br><br>
-    <input type="submit" value="Update">
-  </form>
+<div *ngIf="selectedMachineGun">
+  <label for="name"> Name</label><br>
+  <input type="text" id="name" [(ngModel)]="selectedMachineGun.name"><br><br>
+  <label for="photoUrl">Photo Url</label><br>
+  <input type="text" id="photoUrl" name="photoUrl" [(ngModel)]="selectedMachineGun.photoUrl"><br><br>
+  <label for="description">Description</label><br>
+  <input type="text" id="description" name="description" [(ngModel)]="selectedMachineGun.description"><br><br>
+  <label for="amount">Amount</label><br>
+  <input type="number" id="amount" name="amount" [(ngModel)]="selectedMachineGun.amount"><br><br>
+  <button (click)="updateMachineGun()" >Update</button>
+  <button (click)="deleteMachineGun()" >Delete</button>
 </div>

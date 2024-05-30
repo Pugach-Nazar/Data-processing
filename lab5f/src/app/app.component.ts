@@ -14,15 +14,13 @@ export class AppComponent {
   selectedMachineGun!:MachineGun;
 
   table:boolean=false;
-  showCreateForm:boolean = false;
-  showEditForm:boolean = false;
 
   constructor(private service:Service1Service){}
 
   getRest():void{
     this.service.getRest().subscribe(
       (restResponce)=>{
-        this.machineGuns=restResponce;
+        this.machineGuns=restResponce._embedded.machineGuns;
       }
     );
   }
@@ -30,7 +28,6 @@ export class AppComponent {
   createMachineGun(machineGun:MachineGun){
     this.service.postMachineGun(machineGun).subscribe();
     this.getRest();
-    this.showCreateForm=false;
   }
 
   onSelect(machineGun:MachineGun):void{
@@ -40,11 +37,10 @@ export class AppComponent {
   updateMachineGun():void{
     this.service.putMachineGun(this.selectedMachineGun).subscribe();
     this.getRest();
-    this.showEditForm=false;
   }
   
-  deleteMachineGun(machineGun:MachineGun):void{
-    this.service.deleteMachineGun(machineGun).subscribe();
+  deleteMachineGun():void{
+    this.service.deleteMachineGun(this.selectedMachineGun).subscribe();
     this.getRest();
   }
 }

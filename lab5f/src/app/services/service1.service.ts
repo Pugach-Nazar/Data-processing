@@ -13,8 +13,8 @@ export class Service1Service {
 
   constructor(private http:HttpClient) { }
 
-  getRest():Observable<MachineGun[]>{
-    return this.http.get<MachineGun[]>(this.url)
+  getRest():Observable<RestRespose>{
+    return this.http.get<RestRespose>(this.url)
   }
 
   postMachineGun(machineGun:MachineGun):Observable<MachineGun>{
@@ -22,10 +22,10 @@ export class Service1Service {
   }
 
   putMachineGun(machineGun:MachineGun):Observable<MachineGun>{
-    return this.http.put<MachineGun>(this.url+"/"+machineGun.id, machineGun)
+    return this.http.put<MachineGun>(machineGun._links!.self.href, machineGun)
   }
 
   deleteMachineGun(machineGun:MachineGun):Observable<MachineGun>{
-    return this.http.delete<MachineGun>(this.url+"/"+machineGun.id,)
+    return this.http.delete<MachineGun>(machineGun._links!.self.href)
   }
 }
