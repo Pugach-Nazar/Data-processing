@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MachineGun } from './interfaces/machine-gun';
 import { Service1Service } from './services/service1.service';
 
@@ -10,10 +10,6 @@ import { Service1Service } from './services/service1.service';
 export class AppComponent {
   title = 'lab5f';
   machineGuns:MachineGun[]=[];
-  @Input() machineGun?:MachineGun;
-  selectedMachineGun!:MachineGun;
-
-  table:boolean=false;
 
   constructor(private service:Service1Service){}
 
@@ -22,25 +18,6 @@ export class AppComponent {
       (restResponce)=>{
         this.machineGuns=restResponce._embedded.machineGuns;
       }
-    );
-  }
-
-  createMachineGun(machineGun:MachineGun){
-    this.service.postMachineGun(machineGun).subscribe();
-    this.getRest();
-  }
-
-  onSelect(machineGun:MachineGun):void{
-    this.selectedMachineGun=machineGun;
-  }
-
-  updateMachineGun():void{
-    this.service.putMachineGun(this.selectedMachineGun).subscribe();
-    this.getRest();
-  }
-  
-  deleteMachineGun():void{
-    this.service.deleteMachineGun(this.selectedMachineGun).subscribe();
-    this.getRest();
+    )
   }
 }

@@ -1,7 +1,7 @@
 <h1>Machine guns</h1>
-<button (click)="table=!table" (click)="getRest()">Get machine guns</button>
+<button (click)="getRest()">Get machine guns</button>
 
-<table *ngIf="table">
+<table>
   <thead>
     <tr>
       <th>Назва</th>
@@ -11,38 +11,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr (click)="onSelect(machineGun)" *ngFor="let machineGun of machineGuns">
-      <td >{{machineGun.name}}</td>
-      <td><img src={{machineGun.photoUrl}} alt="photo"></td>
+    <tr *ngFor="let machineGun of machineGuns">
+      <td>{{machineGun.name}}</td>
+      <td><img src="{{machineGun.photoUrl}}" alt="photo"></td>
       <td>{{machineGun.description}}</td>
       <td>{{machineGun.amount}}</td>
     </tr>
   </tbody>
 </table>
-
-<div >
-  <form #form1="ngForm" (ngSubmit)="createMachineGun(form1.value)">
-    <label for="name"> Name</label><br>
-    <input type="text" id="name" name="name" ngModel><br><br>
-    <label for="photoUrl">Photo Url</label><br>
-    <input type="text" id="photoUrl" name="photoUrl" ngModel><br><br>
-    <label for="description"> Description</label><br>
-    <input type="text" id="description" name="description" ngModel><br><br>
-    <label for="amount">Amount</label><br>
-    <input type="number" id="amount" name="amount" ngModel><br><br>
-    <input type="submit" value="Add machineGun" >
-  </form>
-</div>
-
-<div *ngIf="selectedMachineGun">
-  <label for="name"> Name</label><br>
-  <input type="text" id="name" [(ngModel)]="selectedMachineGun.name"><br><br>
-  <label for="photoUrl">Photo Url</label><br>
-  <input type="text" id="photoUrl" name="photoUrl" [(ngModel)]="selectedMachineGun.photoUrl"><br><br>
-  <label for="description">Description</label><br>
-  <input type="text" id="description" name="description" [(ngModel)]="selectedMachineGun.description"><br><br>
-  <label for="amount">Amount</label><br>
-  <input type="number" id="amount" name="amount" [(ngModel)]="selectedMachineGun.amount"><br><br>
-  <button (click)="updateMachineGun()" >Update</button>
-  <button (click)="deleteMachineGun()" >Delete</button>
-</div>
